@@ -137,7 +137,6 @@ func ListTodo() error  {
 
 
 		age := timediff.TimeDiff(todo.Date)
-		fmt.Println("age : ",age)
 
 		fmt.Fprintf(w,"%d\t%s\t%s\t%s\t\n",
 			todo.Id,
@@ -149,6 +148,50 @@ func ListTodo() error  {
 		
 	}
 	w.Flush()
+	return nil
+}
+
+func DeleteTodo(id int) error {
+
+	todos , err := ReadTodos()
+
+	if err != nil {
+		return fmt.Errorf("Error reading csv: %v\n", err)
+	}
+
+	found := false
+	filtredTodos := make([]Todo, 0,len(todos))
+	for _ , todo := range todos {
+		if todo.Id == id {
+			found = true
+			
+		} else {
+			filtredTodos = append(filtredTodos, todo)
+		}
+		
+	}
+
+	if !found {
+		return fmt.Errorf("Couldnt find todo with Id : %d\n", id)
+	}
+
+  file, err := os.OpenFile(FilePath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, os.ModePerm)
+	if err != nil {
+		return fmt.Errorf("error oppening file for writing : %v\n", err)
+	}
+	defer CloseFile(file)
+
+	writer := csv.NewWriter(file)
+	defer writer.Flush()
+
+	for _,todo := range filtredTodos {
+		record := todo.ToRecord()
+		if err := writer.Write(record) ; err != nil {
+			return fmt.Errorf("error writting  in file : %v\n",err)
+		}
+	}
+	fmt.Printf("Todo with ID %d deleted successfully\n", id)
+
 	return nil
 }
 
