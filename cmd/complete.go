@@ -12,11 +12,11 @@ import (
 	"github.com/cuissto59/todo-app-cli/pkg/utils"
 )
 
-// deleteCmd represents the delete command
-var deleteCmd = &cobra.Command{
-	Use:   "delete",
-	Short: "Delete a todo by ID",
-	Long:  "Delete a todo item by its ID",
+// completeCmd represents the complete command
+var completeCmd = &cobra.Command{
+	Use:   "complete",
+	Short: "Complete a giving todo",
+	Long:  `Complete a todo by giving its ID`,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		id, err := strconv.Atoi(args[0])
@@ -24,24 +24,23 @@ var deleteCmd = &cobra.Command{
 			fmt.Println("Error: ID must be a number:", err)
 			return
 		}
-
-		err = utils.DeleteTodo(id)
+		err = utils.CompleteTodo(id)
 		if err != nil {
-			fmt.Println("Error deleting todo:", err)
+			fmt.Println("Error completing todo")
 		}
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(deleteCmd)
+	rootCmd.AddCommand(completeCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// deleteCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// completeCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// deleteCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// completeCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

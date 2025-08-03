@@ -6,8 +6,9 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/cuissto59/todo-app-cli/pkg/utils"
 	"github.com/spf13/cobra"
+
+	"github.com/cuissto59/todo-app-cli/pkg/utils"
 )
 
 // listCmd represents the list command
@@ -21,8 +22,7 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-				
-		err := utils.ListTodo();
+		err := utils.ListTodo()
 		if err != nil {
 			fmt.Println("Error listing todos :", err)
 		}

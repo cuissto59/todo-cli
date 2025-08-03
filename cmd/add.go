@@ -5,8 +5,10 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/cuissto59/todo-app-cli/pkg/utils"
+
 	"github.com/spf13/cobra"
+
+	"github.com/cuissto59/todo-app-cli/pkg/utils"
 )
 
 // addCmd represents the add command
@@ -20,33 +22,32 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-
-		   err := utils.AppendTodo(args)
-		   if err != nil {
-			fmt.Println("Error adding todo :",err	)
+		err := utils.AppendTodo(args)
+		if err != nil {
+			fmt.Println("Error adding todo :", err)
 		}
 
-	// 	file , err := utils.LoadFile(utils.FilePath)
-	//
-	// 	if err != nil {
-	// 		fmt.Println("Error opening file : ",err)
-	// 		return ;
-	// 	}
-	//
-	// 	defer utils.CloseFile(file)
-	//
-	// 	writer := csv.NewWriter(file)
-	//
-	// 	defer writer.Flush();
-	//
-	// 	// write data in the csv file
-	//
-	// 	err = writer.Write(args);
-	//
-	// 	if err !=  nil {
-	// 		fmt.Println("Error writing record:", err)
-	// 	}	
-  },
+		// 	file , err := utils.LoadFile(utils.FilePath)
+		//
+		// 	if err != nil {
+		// 		fmt.Println("Error opening file : ",err)
+		// 		return ;
+		// 	}
+		//
+		// 	defer utils.CloseFile(file)
+		//
+		// 	writer := csv.NewWriter(file)
+		//
+		// 	defer writer.Flush();
+		//
+		// 	// write data in the csv file
+		//
+		// 	err = writer.Write(args);
+		//
+		// 	if err !=  nil {
+		// 		fmt.Println("Error writing record:", err)
+		// 	}
+	},
 }
 
 func init() {
